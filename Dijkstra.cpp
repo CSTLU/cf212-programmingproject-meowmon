@@ -7,20 +7,24 @@ Dijkstra::~Dijkstra()
 }
 void Dijkstra::DFS(int node) {
 	free[node] = false;
-	Path[nodeCount] = node;
+	Queue[nodeCount] = node;
 	nodeCount++;
+	/*cout << "Queue: ";
+	for (int i = 0; i < nodeCount;i++)
+		cout << Queue[i] << " ";
+	cout << endl;*/
 	for (int v = 0; v < n; v++)
 		if (mat[node][v] != 0 && free[v])
 		{
 			lenght += mat[node][v];
 			DFS(v);
 		}
-	if (nodeCount == 5 && mat[node][0] != 0) {
+	if (nodeCount == 5 && mat[node][Queue[0]] != 0) {
 		THEREISAPATH = true;
 		checkMinPath();
 	}
 	free[node] = true;
-	Path[nodeCount] = 0;	
+	Queue[nodeCount] = 0;	
 	nodeCount--;
 }
 void Dijkstra::convertMatrix() {
@@ -52,12 +56,12 @@ void Dijkstra::convertMatrix() {
 void Dijkstra::checkMinPath() {
 	lenght = 0;
 	for (int i = 1;i < n;i++)
-		lenght += mat[Path[i-1]][Path[i]];
-	lenght += mat[Path[n-1]][0];
+		lenght += mat[Queue[i-1]][Queue[i]];
+	lenght += mat[Queue[n-1]][Queue[0]];
 	if (lenght < minLength || minLength == 0) {
 		minLength = lenght;
 		for (int i = 0;i < n;i++)
-			minPath[i] = Path[i];
+			minPath[i] = Queue[i];
 	}
 
 }
@@ -85,7 +89,7 @@ void Dijkstra::releasePath() {
 		cout << "Quang duong thoa man: ";
 		for (int i = 0;i < n;i++)
 			cout << minPath[i] + 1 << "-->";
-		cout << 1 << "\n Tong quang duong: " << minLength << endl;
+		cout << Queue[0]+1 << "\n Tong quang duong: " << minLength << endl;
 	}
 	else
 		cout << "Qua den!!!Khong ton tai duong di.";

@@ -1,9 +1,12 @@
 #include"Dijkstra.h"
 int main() {
 	Dijkstra a;
+	int input;
+	cout << "nhap diem bat dau: ";
+	cin >> input;
 	a.convertMatrix();
 	if (a.checkInput() == true) {
-		a.DFS(0);
+		a.DFS(input-1);
 		a.releasePath();
 	}
 	else

@@ -11,7 +11,7 @@ private:
 	int from;
 	int to;
 	int mat[50][50];// Graph
-	int Path[50];
+	int Queue[50];
 	int minPath[50];
 	bool free[50];
 	int minLength=0;
